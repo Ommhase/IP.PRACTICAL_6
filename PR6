@@ -1,0 +1,78 @@
+import numpy as np
+
+# --- Q1: Creating and Accessing a 2D Array (Using Lists) ---
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+print("Q1 Entire Matrix:", matrix)
+print("Q1 First Row:", matrix[0])
+print("Q1 Element at (2,3) [Row 2, Col 3]:", matrix[1][2])
+
+# --- Q2: Matrix Traversal ---
+print("Q2 Row-wise:", end=" ")
+for row in matrix:
+    for val in row:
+        print(val, end=" ")
+print("\nQ2 Column-wise:", end=" ")
+for c in range(3):
+    for r in range(3):
+        print(matrix[r][c], end=" ")
+print()
+
+# --- Q3: Sum of Rows and Columns ---
+row_sums = [sum(row) for row in matrix]
+col_sums = [sum(matrix[r][c] for r in range(3)) for c in range(3)]
+print(f"Q3 -> Row Sums: {row_sums}, Col Sums: {col_sums}")
+
+# --- Q4: Matrix Addition ---
+m2 = [[9, 8, 7], [6, 5, 4], [3, 2, 1]]
+add_res = [[matrix[i][j] + m2[i][j] for j in range(3)] for i in range(3)]
+print("Q4 Matrix Addition:", add_res)
+
+# --- Q5: Transpose of a Matrix ---
+transpose = [[matrix[j][i] for j in range(3)] for i in range(3)]
+print("Q5 Transposed Matrix:", transpose)
+
+# --- Q6: NumPy Array Creation ---
+arr = np.array([[10, 20, 30], [40, 50, 60]])
+z_arr = np.zeros((2, 2))
+o_arr = np.ones((2, 2))
+print(f"Q6 NumPy Array Shape: {arr.shape}, Dtype: {arr.dtype}")
+
+# --- Q7: NumPy Array Indexing and Slicing ---
+np_mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+print("Q7 Element (1,2):", np_mat[1, 2])
+print("Q7 Row 0:", np_mat[0, :])
+print("Q7 Col 1:", np_mat[:, 1])
+print("Q7 Slicing Top-Left 2x2:\n", np_mat[0:2, 0:2])
+
+# --- Q8: Arithmetic Operations on NumPy Arrays ---
+a1 = np.array([10, 20, 30])
+a2 = np.array([2, 5, 10])
+print(f"Q8 -> Add: {a1 + a2}, Sub: {a1 - a2}, Mul: {a1 * a2}")
+
+# --- Q9: Statistical Operations ---
+data = np.array([15, 20, 35, 40, 50])
+print(f"Q9 -> Mean: {np.mean(data)}, Median: {np.median(data)}, Std Dev: {np.std(data):.2f}")
+
+# --- Q10: Reshaping Arrays ---
+flat = np.arange(1, 7)
+reshaped = flat.reshape(2, 3)
+print("Q10 Reshaped (2x3):\n", reshaped)
+
+# --- Q11: Matrix Operations in NumPy ---
+mat_a = np.array([[1, 2], [3, 4]])
+mat_b = np.array([[5, 6], [7, 8]])
+print("Q11 Matrix Multiplication:\n", np.dot(mat_a, mat_b))
+print("Q11 Transpose:\n", mat_a.T)
+
+# --- Q12: Real-World Dataset Analysis (Student Marks: 3 Students, 3 Subjects) ---
+marks_data = np.array([
+    [85, 90, 88],
+    [70, 75, 80],
+    [92, 95, 98]
+])
+print("Q12 Average per student:", np.mean(marks_data, axis=1))
+print("Q12 Highest Marks:", np.max(marks_data), "| Lowest Marks:", np.min(marks_data))
