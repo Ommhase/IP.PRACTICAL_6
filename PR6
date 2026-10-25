@@ -1,78 +1,255 @@
-import numpy as np
 
-# --- Q1: Creating and Accessing a 2D Array (Using Lists) ---
+# ==========================================================
+# Question 1: Creating and Accessing a 2D Array using Lists
+# ==========================================================
+print("--- Question 1 ---")
+# Create a 3x3 matrix
 matrix = [
+    [10, 20, 30],
+    [40, 50, 60],
+    [70, 80, 90]
+]
+
+print("Entire Matrix:")
+for row in matrix:
+    print(row)
+
+# Access first row (index 0)
+print("\nFirst row:", matrix[0])
+
+# Access element at row 2, column 3 (1-based -> index [1][2])
+print("Element at row 2, col 3:", matrix[1][2])
+
+
+# ==========================================================
+# Question 2: Matrix Traversal
+# ==========================================================
+print("\n--- Question 2 ---")
+mat = [
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9]
 ]
-print("Q1 Entire Matrix:", matrix)
-print("Q1 First Row:", matrix[0])
-print("Q1 Element at (2,3) [Row 2, Col 3]:", matrix[1][2])
 
-# --- Q2: Matrix Traversal ---
-print("Q2 Row-wise:", end=" ")
-for row in matrix:
-    for val in row:
-        print(val, end=" ")
-print("\nQ2 Column-wise:", end=" ")
-for c in range(3):
-    for r in range(3):
-        print(matrix[r][c], end=" ")
-print()
+# Row-wise traversal
+print("Row-wise:")
+for i in range(3):
+    for j in range(3):
+        print(mat[i][j], end=" ")
+    print()
 
-# --- Q3: Sum of Rows and Columns ---
-row_sums = [sum(row) for row in matrix]
-col_sums = [sum(matrix[r][c] for r in range(3)) for c in range(3)]
-print(f"Q3 -> Row Sums: {row_sums}, Col Sums: {col_sums}")
+# Column-wise traversal
+print("\nColumn-wise:")
+for j in range(3):
+    for i in range(3):
+        print(mat[i][j], end=" ")
+    print()
 
-# --- Q4: Matrix Addition ---
-m2 = [[9, 8, 7], [6, 5, 4], [3, 2, 1]]
-add_res = [[matrix[i][j] + m2[i][j] for j in range(3)] for i in range(3)]
-print("Q4 Matrix Addition:", add_res)
 
-# --- Q5: Transpose of a Matrix ---
-transpose = [[matrix[j][i] for j in range(3)] for i in range(3)]
-print("Q5 Transposed Matrix:", transpose)
+# ==========================================================
+# Question 3: Sum of Rows and Columns
+# ==========================================================
+print("\n--- Question 3 ---")
+mat = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
 
-# --- Q6: NumPy Array Creation ---
-arr = np.array([[10, 20, 30], [40, 50, 60]])
-z_arr = np.zeros((2, 2))
-o_arr = np.ones((2, 2))
-print(f"Q6 NumPy Array Shape: {arr.shape}, Dtype: {arr.dtype}")
+# Sum of each row
+print("Sum of each row:")
+for i in range(3):
+    sum_row = 0
+    for j in range(3):
+        sum_row += mat[i][j]
+    print(f"Row {i + 1} sum: {sum_row}")
 
-# --- Q7: NumPy Array Indexing and Slicing ---
-np_mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-print("Q7 Element (1,2):", np_mat[1, 2])
-print("Q7 Row 0:", np_mat[0, :])
-print("Q7 Col 1:", np_mat[:, 1])
-print("Q7 Slicing Top-Left 2x2:\n", np_mat[0:2, 0:2])
+# Sum of each column
+print("\nSum of each column:")
+for j in range(3):
+    sum_col = 0
+    for i in range(3):
+        sum_col += mat[i][j]
+    print(f"Col {j + 1} sum: {sum_col}")
 
-# --- Q8: Arithmetic Operations on NumPy Arrays ---
-a1 = np.array([10, 20, 30])
-a2 = np.array([2, 5, 10])
-print(f"Q8 -> Add: {a1 + a2}, Sub: {a1 - a2}, Mul: {a1 * a2}")
 
-# --- Q9: Statistical Operations ---
-data = np.array([15, 20, 35, 40, 50])
-print(f"Q9 -> Mean: {np.mean(data)}, Median: {np.median(data)}, Std Dev: {np.std(data):.2f}")
+# ==========================================================
+# Question 4: Matrix Addition (Using Lists)
+# ==========================================================
+print("\n--- Question 4 ---")
+m1 = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
 
-# --- Q10: Reshaping Arrays ---
-flat = np.arange(1, 7)
-reshaped = flat.reshape(2, 3)
-print("Q10 Reshaped (2x3):\n", reshaped)
+m2 = [
+    [9, 8, 7],
+    [6, 5, 4],
+    [3, 2, 1]
+]
 
-# --- Q11: Matrix Operations in NumPy ---
-mat_a = np.array([[1, 2], [3, 4]])
-mat_b = np.array([[5, 6], [7, 8]])
-print("Q11 Matrix Multiplication:\n", np.dot(mat_a, mat_b))
-print("Q11 Transpose:\n", mat_a.T)
+result = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+]
 
-# --- Q12: Real-World Dataset Analysis (Student Marks: 3 Students, 3 Subjects) ---
-marks_data = np.array([
-    [85, 90, 88],
-    [70, 75, 80],
-    [92, 95, 98]
+# Compute addition before displaying
+for i in range(3):
+    for j in range(3):
+        result[i][j] = m1[i][j] + m2[i][j]
+
+print("Result Matrix after Addition:")
+for row in result:
+    print(row)
+
+
+# ==========================================================
+# Question 5: Transpose of a Matrix
+# ==========================================================
+print("\n--- Question 5 ---")
+m = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+t = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+]
+
+for i in range(3):
+    for j in range(3):
+        t[j][i] = m[i][j]
+
+print("Original Matrix:")
+for row in m:
+    print(row)
+
+print("\nTransposed Matrix:")
+for row in t:
+    print(row)
+
+
+# ==========================================================
+# Question 6: NumPy Array Creation
+# ==========================================================
+print("\n--- Question 6 ---")
+a = np.array([1, 2, 3, 4, 5])
+b = np.zeros(5)
+c = np.ones(5)
+
+print("Array a:", a)
+print("Zeros Array b:", b)
+print("Ones Array c:", c)
+print("Shape of Array a:", a.shape)
+print("Data type of Array a:", a.dtype)
+
+
+# ==========================================================
+# Question 7: Array Indexing and Slicing (NumPy)
+# ==========================================================
+print("\n--- Question 7 ---")
+arr = np.array([
+    [10, 20, 30],
+    [40, 50, 60],
+    [70, 80, 90]
 ])
-print("Q12 Average per student:", np.mean(marks_data, axis=1))
-print("Q12 Highest Marks:", np.max(marks_data), "| Lowest Marks:", np.min(marks_data))
+
+print("Original Array:\n", arr)
+print("\nSpecific element (row 1, col 2):", arr[1, 2])
+print("Entire row 1:", arr[1, :])
+print("Entire column 1:", arr[:, 1])
+print("Sliced array (2x2 top-left):\n", arr[0:2, 0:2])
+
+
+# ==========================================================
+# Question 8: Arithmetic Operations on Arrays vs Lists
+# ==========================================================
+print("\n--- Question 8 ---")
+arr1 = np.array([1, 2, 3, 4])
+arr2 = np.array([5, 6, 7, 8])
+
+print("NumPy Addition      :", arr1 + arr2)
+print("NumPy Subtraction   :", arr1 - arr2)
+print("NumPy Multiplication:", arr1 * arr2)
+
+# List approach comparison
+list1 = [1, 2, 3, 4]
+list2 = [5, 6, 7, 8]
+
+print("\nList Concatenation (list1 + list2):", list1 + list2)
+list_elementwise = [x + y for x, y in zip(list1, list2)]
+print("List Element-wise Addition (manual):", list_elementwise)
+
+
+# ==========================================================
+# Question 9: Statistical Operations
+# ==========================================================
+print("\n--- Question 9 ---")
+stat_arr = np.array([5, 6, 7, 8])
+
+print("Array:", stat_arr)
+print("Mean              :", np.mean(stat_arr))
+print("Median            :", np.median(stat_arr))
+print("Standard Deviation:", np.std(stat_arr))
+
+
+# ==========================================================
+# Question 10: Reshaping Arrays
+# ==========================================================
+print("\n--- Question 10 ---")
+orig_arr = np.arange(1, 13)
+print("Original 1D Array:\n", orig_arr)
+
+arr_2d_1 = orig_arr.reshape(3, 4)
+print("\nReshaped to 3x4:\n", arr_2d_1)
+
+arr_2d_2 = orig_arr.reshape(4, 3)
+print("\nReshaped to 4x3:\n", arr_2d_2)
+
+arr_2d_3 = orig_arr.reshape(2, 6)
+print("\nReshaped to 2x6:\n", arr_2d_3)
+
+
+# ==========================================================
+# Question 11: Matrix Operations
+# ==========================================================
+print("\n--- Question 11 ---")
+A = np.array([[1, 2], [3, 4]])
+B = np.array([[5, 6], [7, 8]])
+
+# Matrix multiplication using @ operator
+print("Matrix Multiplication (A @ B):\n", A @ B)
+
+# Transpose
+print("\nTranspose of A (A.T):\n", A.T)
+
+# Manual verification calculation
+manual_mult = [
+    [1 * 5 + 2 * 7, 1 * 6 + 2 * 8],
+    [3 * 5 + 4 * 7, 3 * 6 + 4 * 8]
+]
+print("\nManual Verification:\n", np.array(manual_mult))
+
+
+# ==========================================================
+# Question 12: Real-World Dataset Analysis
+# ==========================================================
+print("\n--- Question 12 ---")
+# Dataset of student marks using Pandas
+df = pd.DataFrame({
+    'Name': ['A', 'B', 'C'],
+    'Marks': [80, 65, 90]
+})
+
+print("Dataset:")
+print(df)
+
+print("\nInsights:")
+print("Average Marks:", df['Marks'].mean())
+print("Highest Marks:", df['Marks'].max())
+print("Lowest Marks :", df['Marks'].min())
