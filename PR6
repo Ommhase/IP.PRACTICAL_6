@@ -1,255 +1,116 @@
+<?php
+// ==========================================================
+// PRACTICAL 6: PHP MATHEMATICAL OPERATIONS & FORM HANDLING
+// ==========================================================
 
-# ==========================================================
-# Question 1: Creating and Accessing a 2D Array using Lists
-# ==========================================================
-print("--- Question 1 ---")
-# Create a 3x3 matrix
-matrix = [
-    [10, 20, 30],
-    [40, 50, 60],
-    [70, 80, 90]
-]
-
-print("Entire Matrix:")
-for row in matrix:
-    print(row)
-
-# Access first row (index 0)
-print("\nFirst row:", matrix[0])
-
-# Access element at row 2, column 3 (1-based -> index [1][2])
-print("Element at row 2, col 3:", matrix[1][2])
+// ==========================================================
+// Question 1: Display a Message
+// ==========================================================
+echo "Welcome to PHP Web Programming!<br><br>";
 
 
-# ==========================================================
-# Question 2: Matrix Traversal
-# ==========================================================
-print("\n--- Question 2 ---")
-mat = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
-]
+// ==========================================================
+// Question 2: Mathematical Operations
+// ==========================================================
+$a = 10;
+$b = 5;
 
-# Row-wise traversal
-print("Row-wise:")
-for i in range(3):
-    for j in range(3):
-        print(mat[i][j], end=" ")
-    print()
-
-# Column-wise traversal
-print("\nColumn-wise:")
-for j in range(3):
-    for i in range(3):
-        print(mat[i][j], end=" ")
-    print()
+echo "Addition: " . ($a + $b) . "<br>";
+echo "Subtraction: " . ($a - $b) . "<br>";
+echo "Multiplication: " . ($a * $b) . "<br>";
+echo "Division: " . ($b != 0 ? ($a / $b) : "Cannot divide by zero") . "<br><br>";
 
 
-# ==========================================================
-# Question 3: Sum of Rows and Columns
-# ==========================================================
-print("\n--- Question 3 ---")
-mat = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
-]
+// ==========================================================
+// Question 3: Simple Calculator
+// ==========================================================
+$val_a = (float)($_POST['a'] ?? 10);
+$val_b = (float)($_POST['b'] ?? 5);
+$op = $_POST['op'] ?? '+';
 
-# Sum of each row
-print("Sum of each row:")
-for i in range(3):
-    sum_row = 0
-    for j in range(3):
-        sum_row += mat[i][j]
-    print(f"Row {i + 1} sum: {sum_row}")
+if ($op === '+') {
+    $answer = $val_a + $val_b;
+} elseif ($op === '-') {
+    $answer = $val_a - $val_b;
+} elseif ($op === '*') {
+    $answer = $val_a * $val_b;
+} elseif ($op === '/') {
+    $answer = ($val_b != 0) ? ($val_a / $val_b) : 'Cannot divide by zero';
+} else {
+    $answer = 'Invalid operation';
+}
 
-# Sum of each column
-print("\nSum of each column:")
-for j in range(3):
-    sum_col = 0
-    for i in range(3):
-        sum_col += mat[i][j]
-    print(f"Col {j + 1} sum: {sum_col}")
+echo "Calculator Answer: " . htmlspecialchars((string)$answer);
+?>
 
+==========================================================
+    Whole Combined Code (htdocs/webprac/practical6.php)
+==========================================================
 
-# ==========================================================
-# Question 4: Matrix Addition (Using Lists)
-# ==========================================================
-print("\n--- Question 4 ---")
-m1 = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
-]
+<?php
+$message = "";
+$result = "";
 
-m2 = [
-    [9, 8, 7],
-    [6, 5, 4],
-    [3, 2, 1]
-]
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $technology = trim($_POST['technology'] ?? '');
+    $a = filter_input(INPUT_POST, 'a', FILTER_VALIDATE_FLOAT);
+    $b = filter_input(INPUT_POST, 'b', FILTER_VALIDATE_FLOAT);
+    $op = $_POST['op'] ?? '+';
 
-result = [
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0]
-]
+    if ($technology !== '') {
+        $message = "Suggestion received for: " . htmlspecialchars($technology);
+    }
 
-# Compute addition before displaying
-for i in range(3):
-    for j in range(3):
-        result[i][j] = m1[i][j] + m2[i][j]
+    if ($a !== false && $a !== null && $b !== false && $b !== null) {
+        switch ($op) {
+            case '+':
+                $result = $a + $b;
+                break;
+            case '-':
+                $result = $a - $b;
+                break;
+            case '*':
+                $result = $a * $b;
+                break;
+            case '/':
+                $result = ($b != 0) ? ($a / $b) : 'Cannot divide by zero';
+                break;
+            default:
+                $result = 'Invalid operation';
+        }
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PHP Calculator and Form</title>
+</head>
+<body>
+    <h1>PHP Mathematical Operations</h1>
 
-print("Result Matrix after Addition:")
-for row in result:
-    print(row)
+    <?php if ($message): ?>
+        <p style="color: green;"><strong><?php echo $message; ?></strong></p>
+    <?php endif; ?>
 
+    <?php if ($result !== ""): ?>
+        <p><strong>Calculator result:</strong> <?php echo htmlspecialchars((string)$result); ?></p>
+    <?php endif; ?>
 
-# ==========================================================
-# Question 5: Transpose of a Matrix
-# ==========================================================
-print("\n--- Question 5 ---")
-m = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
-]
-
-t = [
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0]
-]
-
-for i in range(3):
-    for j in range(3):
-        t[j][i] = m[i][j]
-
-print("Original Matrix:")
-for row in m:
-    print(row)
-
-print("\nTransposed Matrix:")
-for row in t:
-    print(row)
-
-
-# ==========================================================
-# Question 6: NumPy Array Creation
-# ==========================================================
-print("\n--- Question 6 ---")
-a = np.array([1, 2, 3, 4, 5])
-b = np.zeros(5)
-c = np.ones(5)
-
-print("Array a:", a)
-print("Zeros Array b:", b)
-print("Ones Array c:", c)
-print("Shape of Array a:", a.shape)
-print("Data type of Array a:", a.dtype)
-
-
-# ==========================================================
-# Question 7: Array Indexing and Slicing (NumPy)
-# ==========================================================
-print("\n--- Question 7 ---")
-arr = np.array([
-    [10, 20, 30],
-    [40, 50, 60],
-    [70, 80, 90]
-])
-
-print("Original Array:\n", arr)
-print("\nSpecific element (row 1, col 2):", arr[1, 2])
-print("Entire row 1:", arr[1, :])
-print("Entire column 1:", arr[:, 1])
-print("Sliced array (2x2 top-left):\n", arr[0:2, 0:2])
-
-
-# ==========================================================
-# Question 8: Arithmetic Operations on Arrays vs Lists
-# ==========================================================
-print("\n--- Question 8 ---")
-arr1 = np.array([1, 2, 3, 4])
-arr2 = np.array([5, 6, 7, 8])
-
-print("NumPy Addition      :", arr1 + arr2)
-print("NumPy Subtraction   :", arr1 - arr2)
-print("NumPy Multiplication:", arr1 * arr2)
-
-# List approach comparison
-list1 = [1, 2, 3, 4]
-list2 = [5, 6, 7, 8]
-
-print("\nList Concatenation (list1 + list2):", list1 + list2)
-list_elementwise = [x + y for x, y in zip(list1, list2)]
-print("List Element-wise Addition (manual):", list_elementwise)
-
-
-# ==========================================================
-# Question 9: Statistical Operations
-# ==========================================================
-print("\n--- Question 9 ---")
-stat_arr = np.array([5, 6, 7, 8])
-
-print("Array:", stat_arr)
-print("Mean              :", np.mean(stat_arr))
-print("Median            :", np.median(stat_arr))
-print("Standard Deviation:", np.std(stat_arr))
-
-
-# ==========================================================
-# Question 10: Reshaping Arrays
-# ==========================================================
-print("\n--- Question 10 ---")
-orig_arr = np.arange(1, 13)
-print("Original 1D Array:\n", orig_arr)
-
-arr_2d_1 = orig_arr.reshape(3, 4)
-print("\nReshaped to 3x4:\n", arr_2d_1)
-
-arr_2d_2 = orig_arr.reshape(4, 3)
-print("\nReshaped to 4x3:\n", arr_2d_2)
-
-arr_2d_3 = orig_arr.reshape(2, 6)
-print("\nReshaped to 2x6:\n", arr_2d_3)
-
-
-# ==========================================================
-# Question 11: Matrix Operations
-# ==========================================================
-print("\n--- Question 11 ---")
-A = np.array([[1, 2], [3, 4]])
-B = np.array([[5, 6], [7, 8]])
-
-# Matrix multiplication using @ operator
-print("Matrix Multiplication (A @ B):\n", A @ B)
-
-# Transpose
-print("\nTranspose of A (A.T):\n", A.T)
-
-# Manual verification calculation
-manual_mult = [
-    [1 * 5 + 2 * 7, 1 * 6 + 2 * 8],
-    [3 * 5 + 4 * 7, 3 * 6 + 4 * 8]
-]
-print("\nManual Verification:\n", np.array(manual_mult))
-
-
-# ==========================================================
-# Question 12: Real-World Dataset Analysis
-# ==========================================================
-print("\n--- Question 12 ---")
-# Dataset of student marks using Pandas
-df = pd.DataFrame({
-    'Name': ['A', 'B', 'C'],
-    'Marks': [80, 65, 90]
-})
-
-print("Dataset:")
-print(df)
-
-print("\nInsights:")
-print("Average Marks:", df['Marks'].mean())
-print("Highest Marks:", df['Marks'].max())
-print("Lowest Marks :", df['Marks'].min())
+    <form method="post" action="">
+        <label>Technology suggestion: <input type="text" name="technology"></label><br><br>
+        <label>First number: <input type="number" step="any" name="a" required></label><br><br>
+        <label>Second number: <input type="number" step="any" name="b" required></label><br><br>
+        <label>Operation:
+            <select name="op">
+                <option value="+">Add (+)</option>
+                <option value="-">Subtract (-)</option>
+                <option value="*">Multiply (*)</option>
+                <option value="/">Divide (/)</option>
+            </select>
+        </label><br><br>
+        <button type="submit">Submit / Calculate</button>
+    </form>
+</body>
+</html>
